@@ -1,0 +1,54 @@
+body {background-color: black; color:white}
+
+.cell {
+    width:40px; height:40px;text-align: center;
+    background-color: gray;
+}
+.cell img {width:25px; height:auto}
+.floor {background-color: gray}
+.wall {background-color: brown}
+
+.container {
+    width: 600px;
+    height: 100px;
+
+}
+
+.picked {
+    height: 40px;
+    width: 300px;
+    font-size: 30px;
+    background-color: rgb(20, 109, 177);
+    border-radius: 5px;
+    display: block;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+.won {
+    height: 40px;
+    width: 150px;
+    font-size: 30px;
+    background-color: rgb(163, 185, 43);
+    border-radius: 5px;
+    display: block;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: none;
+
+}
+.restart {
+    cursor: pointer;
+    display: none;
+}
+
+
+
