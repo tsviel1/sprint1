@@ -53,4 +53,12 @@ function restart() {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min
 }
-
+function startTimer() {
+    gStartTime = Date.now()
+    gIntervalID = setInterval(updateTime, 1000)
+}
+ function updateTime () {
+     gGame.secsPassed++
+     var elSpan = document.querySelector('.timer span')
+     elSpan.innerText = gGame.secsPassed
+ }
