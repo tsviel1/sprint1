@@ -121,10 +121,17 @@ function checkIfBestScore() {
 }
 
 function printBestScore() {
-    var secs = localStorage.bestScoreSecs
-    if (secs < 10) secs = '0' + secs
-    var mins = localStorage.bestScoreMins
-    if (mins < 10) mins = '0' + mins
+    var secs
+    var mins
+    if (!localStorage.bestScoreSecs) {
+        secs = ''
+        mins = ''
+    } else {
+        secs = localStorage.bestScoreSecs
+        if (secs < 10) secs = '0' + secs
+        mins = localStorage.bestScoreMins
+        if (mins < 10) mins = '0' + mins
+    }
     var str = `${mins}:${secs}`
     var elSpan = document.querySelector('.best-score span')
     elSpan.innerText = str
@@ -140,7 +147,6 @@ function undo() {
         var cellID = getIDbyLocation(currCellObject)
         var elCell = document.getElementById(cellID)
         elCell.innerHTML = ''
+        gGame.shownCount--
     }
-    updateGameShownCount()
 }
-
