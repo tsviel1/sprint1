@@ -5,8 +5,11 @@ function beginner() {
     gGame.ended = false
     clearInterval(gIntervalID)
     gGame.secsPassed = 0
-    var elSpan = document.querySelector('.timer span')
-    elSpan.innerText = ''
+    gGame.minsPassed = 0
+    var elSpanSeconds = document.querySelector('.timer span.seconds')
+    elSpanSeconds.innerText = '00'
+    var elSpanMinutes = document.querySelector('.timer span.minutes')
+    elSpanMinutes.innerText = '00'
     gLevel.SIZE = 4;
     gLevel.MINES = 2;
     initGame()
@@ -17,8 +20,11 @@ function medium() {
     gGame.ended = false
     clearInterval(gIntervalID)
     gGame.secsPassed = 0
-    var elSpan = document.querySelector('.timer span')
-    elSpan.innerText = ''
+    gGame.minsPassed = 0
+    var elSpanSeconds = document.querySelector('.timer span.seconds')
+    elSpanSeconds.innerText = '00'
+    var elSpanMinutes = document.querySelector('.timer span.minutes')
+    elSpanMinutes.innerText = '00'
     gLevel.SIZE = 8;
     gLevel.MINES = 12;
     initGame()
@@ -29,10 +35,13 @@ function expert() {
     gGame.ended = false
     clearInterval(gIntervalID)
     gGame.secsPassed = 0
-    var elSpan = document.querySelector('.timer span')
-    elSpan.innerText = ''
+    gGame.minsPassed = 0
+    var elSpanSeconds = document.querySelector('.timer span.seconds')
+    elSpanSeconds.innerText = '00'
+    var elSpanMinutes = document.querySelector('.timer span.minutes')
+    elSpanMinutes.innerText = '00'
     gLevel.SIZE = 12;
-    gLevel.MINES = 30;
+    gLevel.MINES = 40;
     initGame()
 }
 

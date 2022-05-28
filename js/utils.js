@@ -11,42 +11,10 @@ function createMat(ROWS, COLS) {
     return mat
 }
 
-function printMat(mat, selector) {
-    var strHTML = '<table border="0"><tbody>';
-    for (var i = 0; i < mat.length; i++) {
-        strHTML += '<tr>';
-        for (var j = 0; j < mat[0].length; j++) {
-            var cell = mat[i][j];
-            var className = 'cell cell-' + i + '-' + j;
-            strHTML += '<td class="' + className + '"> ' + cell + ' </td>'
-        }
-        strHTML += '</tr>'
-    }
-    strHTML += '</tbody></table>';
-    var elContainer = document.querySelector(selector);
-    elContainer.innerHTML = strHTML;
-}
 // Returns the class name for a specific cell
 function getClassName(location) {
 	var cellClass = 'cell-' + location.i + '-' + location.j;
 	return cellClass;
-}
-
-function addEl(value, time) {
-    var cell = getEmptyCell()
-    gBoard[cell.i][cell.j] = value
-    renderCell(cell, value)
-    setTimeout(function () {
-        gBoard[cell.i][cell.j] = ''
-        renderCell(cell, disCell)
-    }, time)
-}
-
-
-function restart() {
-    var elModal = document.querySelector('.modal')
-    elModal.style.display = 'none'
-    initGame()
 }
 
 //min- in, max-out
@@ -59,6 +27,16 @@ function startTimer() {
 }
  function updateTime () {
      gGame.secsPassed++
-     var elSpan = document.querySelector('.timer span')
-     elSpan.innerText = gGame.secsPassed
+     if (gGame.secsPassed > 59) {
+         gGame.secsPassed = 0
+         gGame.minsPassed++
+     }
+     var secs = gGame.secsPassed
+     var mins = gGame.minsPassed
+     if (secs < 10) secs = '0' + secs
+     if (mins < 10) mins = '0' + mins
+     var elSpanSeconds = document.querySelector('.timer span.seconds')
+     elSpanSeconds.innerText = secs
+     var elSpanMinutes = document.querySelector('.timer span.minutes')
+     elSpanMinutes.innerText = mins
  }

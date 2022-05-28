@@ -4,27 +4,44 @@
 <head>
   <meta charset="utf-8">
   <title>Minesweeper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body onload="initGame()">
-  <h1>Minesweeper</h1>
-  <div class="timer">Timer: <span></span></div>
-  <div class="lives">lives: <span></span></div>
-  <div class="levels">
-    <button class="beginner" onclick="beginner()">Beginner</button>
-    <button class="medium" onclick="medium()">Medium</button>
-    <button class="expert" onclick="expert()">Expert</button>
+  <h1>Minesweeper <span>Plus</span></h1>
+  <div class="all-above">
+    <div class="left-part">
+      <div class="timer">Timer: <span class="minutes">00</span>:<span class="seconds">00</span> </div>
+      <div class="lives">Lives: <span></span></div>
+
+      <div class="levels">
+        <button class="beginner" onclick="beginner()">Beginner</button>
+        <button class="medium" onclick="medium()">Medium</button>
+        <button class="expert" onclick="expert()">Expert</button>
+      </div>
+      <div class="functional">
+        <button class="safe-click" onclick="safeClick()">Safe Click (<span></span>)</button>
+        <button class="undo" onclick="undo()">Undo</button>
+      </div>
+      <button class="smiley" onclick="resetGame()"></button>
+    </div>
+    <div class="right-part">
+      <div class="best-score">Best Score:<br><span>:</span></div>
+      <div class="hints">Hints:<br> <button class="hint1" onclick="hint(this)"></button></button> <button class="hint2"
+          onclick="hint(this)"></button> <button class="hint3" onclick="hint(this)"></button> </div>
+    </div>
   </div>
-  <div class="functional">
-    <button class="safe-click" onclick="safeClick()">Safe Click (<span></span>)</button>
-    <button class="hint" onclick="hint()">Hint(<span></span>)</button>
-    <button class="undo" onclick="undo()">Undo</button>
+    <table class="board-game">
+      <tbody class="board"></tbody>
+    </table>
+  <div class="footer">
+    Tsviel Sillam
   </div>
-  <div class="smiley" onclick="resetGame()"></div>
-  <table>
-    <tbody class="board"></tbody>
-  </table>
+
+
   <script src="js/utils.js"></script>
   <script src="js/levels.js"></script>
   <script src="js/functional.js"></script>

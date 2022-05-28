@@ -1,17 +1,37 @@
-body {background-color: black; color:white}
+body {
+    background-color: black;
+    color: white
+}
+
+h1 {
+    font-family: 'Kaushan Script', cursive;
+}
+
+h1 span {
+    color: rgb(255, 133, 241);
+    font-weight: bold;
+
+}
 
 .cell {
-    width:40px; height:40px;text-align: center;
+    width: 40px;
+    height: 40px;
+    text-align: center;
     background-color: gray;
 }
-.cell img {width:25px; height:auto}
-.floor {background-color: gray}
-.wall {background-color: brown}
+
+.cell img {
+    width: 25px;
+    height: auto
+}
+
+.floor {
+    background-color: gray
+}
 
 .container {
     width: 600px;
     height: 100px;
-
 }
 
 .restart {
@@ -22,15 +42,90 @@ body {background-color: black; color:white}
 .timer {
     background-color: blueviolet;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    height: 30px;
+    height: 26px;
     width: 120px;
-    border-radius: 10%;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 5px;
 }
 
 .lives {
     background-color: rgb(226, 128, 43);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 26px;
+    width: 114px;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-left: 7px;
+}
+
+.all-above {
+    background-color: brown;
+    width: 550px;
+    background-image: url(../img/candy-pattern.png);
+    background-size: 60px;
+    border-radius: 10px;
+}
+
+.left-part {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.right-part {
+    color: black;
+    display: inline-block;
+    width: 200px;
+    vertical-align: middle;
+    padding-left: 20px;
+}
+
+.best-score {
+    background-color: rgb(67, 185, 156);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 45px;
+    width: 200px;
+    border-radius: 7px;
+    text-align: center;
+    padding-top: 5px;
+    margin: 5px;
+}
+
+.hints {
+    background-color: rgb(67, 185, 156);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 45px;
+    width: 200px;
+    border-radius: 7px;
+    text-align: center;
+    padding-top: 5px;
+    margin: 5px;
+}
+
+.hints button {
+    width: 30px;
     height: 30px;
-    width: 120px;
-    border-radius: 10%;
+    text-align: center;
+}
+
+.hints button img {
+    width: 19px;
+    height: auto;
+}
+
+.footer {
+    position: fixed;
+    left: 10px;
+    bottom: 5px;
+    right: 10px;
+    width: 550px;
+    background-color: rgb(163, 163, 163);
+    color: black;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.board-game {
+margin-left: 10px;
+margin-top: 10px;
 }

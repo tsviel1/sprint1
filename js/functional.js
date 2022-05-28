@@ -1,5 +1,10 @@
 'use strict'
 
+const LIGHT_BULB = '<img src="img/lightbulb.png" />'
+const CLOSED_LIGHT_BULB = '<img src="img/closed-lightbulb.png" />'
+
+// Safe Click
+
 function safeClick() {
     if (gSafeTries === 0) return
     var cell = getSafeCell()
@@ -34,49 +39,29 @@ function updateSafeClick() {
     elSpan.innerText = gSafeTries
 }
 
-function updateHint() {
-    var elSpan = document.querySelector('.hint span')
-    elSpan.innerText = gHintTries
+// Hints
+
+function bringLightBulbs() {
+    var hintButtons = document.querySelectorAll('.hints button')
+    hintButtons[0].innerHTML = CLOSED_LIGHT_BULB
+    hintButtons[1].innerHTML = CLOSED_LIGHT_BULB
+    hintButtons[2].innerHTML = CLOSED_LIGHT_BULB
 }
 
-function hint() {
+function hint(elCell) {
     if (!gGame.isOn) return
     if (gHintTries === 0) return
+    elCell.innerHTML = LIGHT_BULB
     gHintMode = true
     gHintTries--
-    updateHint()
 }
 
-// function showAllAround(cellI, cellJ) {
-//     for (var i = cellI - 1; i <= cellI + 1; i++) {
-//         if (i < 0 || i >= gBoard.length) continue;
-//         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
-//             if (j < 0 || j >= gBoard[i].length) continue;
-//             var currCell = gBoard[i][j]
-//             if (!currCell.isShown) {
-//                 if (currCell.isMine) {
-//                     var cellID = getIDbyLocation({ i: i, j: i })
-//                     var elCell = document.getElementById(cellID)
-//                     elCell.innerHTML = MINE_IMG
-//                     setTimeout(() => {
-//                         elCell.innerHTML = ''
-//                     }, 1000);
-//                 } else {
-//                     var cellID = getIDbyLocation({ i: i, j: j })
-//                     var numOfNeighbors = currCell.minesAroundCount
-//                     var strHTML = `<img src="img/${numOfNeighbors}.png" />`
-//                     var elCell = document.getElementById(cellID)
-//                     elCell.innerHTML = strHTML
-//                     setTimeout(() => {
-//                         elCell.innerHTML = ''
-//                     }, 1000);
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// nisaion aharon
+function eliminateHint() {
+    var hintButtons = document.querySelectorAll('.hints button')
+    for (var i = 0; i < 3; i++) {
+        if (hintButtons[i].innerHTML === LIGHT_BULB) hintButtons[i].style.display = 'none'
+    }
+}
 
 function showAllAround(cellI, cellJ) {
     for (var i = cellI - 1; i <= cellI + 1; i++) {
@@ -84,16 +69,78 @@ function showAllAround(cellI, cellJ) {
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= gBoard[i].length) continue;
             var currCell = gBoard[i][j]
-            if (!currCell.isShown) {
-                gIntervalHint = setInterval(currCell.isShown = true, 1000)
-                renderBoard2()
-                setTimeout(() => {
-                    clearInterval(gIntervalHint);
-                }, 1000);
-                setTimeout(() => {
-                    renderBoard2
-                }, 1500);
+            if (!currCell.isShown && !currCell.isMarked) {
+                gAllAround.push({ i: i, j: j })
+                currCell.isShown = true
             }
         }
     }
+    renderCellsAround()
 }
+
+function clearAllAround() {
+    for (var i = 0; i < gAllAround.length; i++) {
+        var cellToHide = gAllAround[i]
+        gBoard[cellToHide.i][cellToHide.j].isShown = false
+    }
+    unRenderCellsAround()
+}
+
+function renderCellsAround() {
+    for (var i = 0; i < gAllAround.length; i++) {
+        var currCellObject = gAllAround[i]
+        var cellID = getIDbyLocation(currCellObject)
+        var elCell = document.getElementById(cellID)
+        var currCell = gBoard[currCellObject.i][currCellObject.j]
+        if (!currCell.isMine) {
+            var numOfNeighbors = currCell.minesAroundCount
+            var strHTML = `<img src="img/${numOfNeighbors}.png" />`
+        } else {
+            var strHTML = MINE_IMG
+        }
+        elCell.innerHTML = strHTML
+    }
+}
+
+function unRenderCellsAround() {
+    for (var i = 0; i < gAllAround.length; i++) {
+        var currCellObject = gAllAround[i]
+        var cellID = getIDbyLocation(currCellObject)
+        var elCell = document.getElementById(cellID)
+        elCell.innerHTML = ''
+    }
+    gAllAround = []
+}
+
+function checkIfBestScore() {
+    if (gGame.minsPassed > localStorage.bestScoreMins) return
+    if (gGame.minsPassed === localStorage.bestScoreMins && gGame.secsPassed >= localStorage.bestScoreSecs) return
+    localStorage.bestScoreMins = gGame.minsPassed
+    localStorage.bestScoreSecs = gGame.secsPassed
+    printBestScore()
+}
+
+function printBestScore() {
+    var secs = localStorage.bestScoreSecs
+    if (secs < 10) secs = '0' + secs
+    var mins = localStorage.bestScoreMins
+    if (mins < 10) mins = '0' + mins
+    var str = `${mins}:${secs}`
+    var elSpan = document.querySelector('.best-score span')
+    elSpan.innerText = str
+}
+
+function undo() {
+    if (gGame.ended) return
+    var lastMove = gUndoMoves.pop()
+    if (!lastMove) return
+    for (var i = 0; i < lastMove.length; i++) {
+        var currCellObject = lastMove[i]
+        gBoard[currCellObject.i][currCellObject.j].isShown = false
+        var cellID = getIDbyLocation(currCellObject)
+        var elCell = document.getElementById(cellID)
+        elCell.innerHTML = ''
+    }
+    updateGameShownCount()
+}
+
